@@ -1,7 +1,7 @@
 <!doctype hmtl>
 <html>
   <head>
- 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>chat</title>
 		<style>
 		  html, body {
@@ -148,6 +148,8 @@ const pal=[
 //  --- Program Below ---
 //	---------------------
 
+
+
 var ter=null;
 var pad=null;
 
@@ -191,11 +193,11 @@ class Touch {
 }
 
 
-dchr=(f,c,x,y,s)=>{
+dchr=(c,f,l,x,y,s)=>{
 	for(var j=0;j<f.h;j++) {
 		for(var i=0;i<f.w;i++) {
-			var k=f.p[c*f.w*f.h+j*f.w+i];
-			if(k==1) pset(i+x,j+y,s,rgba(pal[12]));
+			var k=f.p[l*f.w*f.h+j*f.w+i];
+			if(k===1) pset(c,i+x,j+y,s,rgba(pal[12]));
 		}
 	}
 }
@@ -240,8 +242,10 @@ class Term {
 			for(var k=0;k<this.mem.length;k++) {
 				var i=k%this.w;
 				var j=flr(k/this.w);
-				dchr(this.font,chr(this.mem[j*this.w+i]),i+ox,j+oy,this.ps);
+				dchr(this.ctx,this.font,this.mem[j*this.w+i],i*font.w+ox,j*font.h+oy,this.ps);
 			}
+			
+			rect(this.ctx,this.x*this.font.w*this.ps,this.y*this.font.h*this.ps,this.font.w*this.ps-1,this.font.h*this.ps-1,rgba(pal[12]));
 	}
 	
 }
@@ -261,7 +265,7 @@ class Pad {
 		this.C=make("canvas");
 		this.C.width=320;
 		this.C.height=240;
-		
+
 		this.c=gctx(this.C);
 		
 		let tcx=(window.innerWidth-this.w*16)/2;
@@ -272,12 +276,13 @@ class Pad {
 		this.C.style.top=`${tcy}px`;
 		
 		append(body,this.C);
-		this.ctx=gctx(this.C);
+		
+		this.t=new Touch(this.C);
+
 		
 		clear(this.c,rgba(pal[0]));
 		this.c.translate(0.5,0.5);
 		
-		this.t=new Touch(this.C);
 
 		this.x=0;
 		this.y=0;
@@ -292,7 +297,7 @@ class Pad {
 		this.kcl=0;
 		this.kal=0;
 		this.kfn=0;
-		this.key="";
+		this.key=0;
 		this.kp=0;
 		
 		this.b=[
@@ -331,8 +336,8 @@ class Pad {
 		clear(this.c,rgba(pal[0]));
 		
 		for(var j=0;j<this.b[this.m].length;j++) {
-			let cx=flr((this.C.width-this.b[this.m][j].length*(this.sx+this.gx))/2);
-			let cy=flr((this.C.height-this.b[this.m].length*(this.sy+this.gy))/2);
+			var cx=flr((this.C.width-this.b[this.m][j].length*(this.sx+this.gx))/2);
+			var cy=flr((this.C.height-this.b[this.m].length*(this.sy+this.gy))/2);
 			for(var i=0;i<this.b[this.m][j].length;i++) {
 		
 				var kk=this.b[this.m][j][i];
@@ -360,7 +365,7 @@ class Pad {
 								this.key=ord(kk);
 								if(kk==="SHF") { 
 									this.key=0; 
-									this.m=this.m==0?1:0;  
+									this.m=1-this.m;  
 									this.ksh=1-this.ksh; 
 								} else if(kk==="CTL") { 
 									this.key=0; 
@@ -377,7 +382,7 @@ class Pad {
 										this.ter.x--;
 									} else if(this.ter.y>0) {
 										this.ter.x=this.ter.w-1;
-										y--;
+										this.ter.y--;
 									}
 								} else if(kk==="DN") {
 									this.key=0; 
@@ -404,7 +409,7 @@ class Pad {
 									this.key=32;
 									this.ter.mem[this.ter.y*this.ter.w+this.ter.x]=this.key;
 				 			
-				 	 				if(this.ter.x==this.ter.w-1 && this.ter.y==this.ter.h-1) {
+				 	 				if(this.ter.x===this.ter.w-1 && this.ter.y===this.ter.h-1) {
 										this.ter.x=0;
 										this.ter.y=this.ter.h-1;
 										for(var ui=0,uj=16;uj<256;ui++,uj++) {
@@ -445,8 +450,8 @@ class Pad {
 									
 									this.ksh=this.kcl=this.kal=this.kfn=0;
 									this.ter.mem[this.ter.y*this.ter.w+this.ter.x]=this.key;
-				 			
-				 	 				if(this.ter.x===this.ter.w-1 && this.ter.y===this.ter.h-1) {
+
+                  if(this.ter.x===this.ter.w-1 && this.ter.y===this.ter.h-1) {
 										this.ter.x=0;
 										this.ter.y=this.ter.h-1;
 										for(var ui=0,uj=16;uj<this.ter.mem.length;ui++,uj++) {
@@ -491,7 +496,7 @@ draw=()=>{
 init=()=>{
 	body.style.background=rgba(pal[15]);
 	ter=new Term(font,16,16);
-	pad=new Pad(console);
+	pad=new Pad(ter);
 	ani(draw);
 }
 
