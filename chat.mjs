@@ -1,4 +1,4 @@
-import font from './font.js'
+import font from './font.mjs'
 
 //  ----------------------
 //  --- Calc Functions ---
