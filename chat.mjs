@@ -240,8 +240,8 @@ class Pad {
     this.m = 0
     this.sx = 28
     this.sy = 32
-    this.gx = 2
-    this.gy = 2
+    this.gx = 4
+    this.gy = 4
     this.ro = 5
     this.hd = 0
     this.ksh = 0
@@ -461,8 +461,8 @@ const init = () => {
   ani(draw)
 }
 
-init()
-
 //  -------------------
 //  --- End Program ---
 //  -------------------
+
+export default init;
