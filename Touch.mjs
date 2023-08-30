@@ -1,3 +1,5 @@
+import * from './calc.mjs'
+
 class Touch {
   static me
   constructor (canvas) {

@@ -64,3 +64,5 @@ const inrect = (x, y, rx, ry, rw, rh) => x >= rx && x <= rx + rw && y >= ry && y
 const incirc = (x, y, rx, ry, rr) => x * x - y * y <= rr * rr
 const dist = (x0, y0, x1, y1) => { const dx = x1 - x0; const dy = y1 - y0; return sqrt(dx * dx + dy * dy) }
 const frect = (c, x, y, w, h, f) => { c.fillStyle = f; c.fillRect(x, y, w, h) }
+
+export defualt *

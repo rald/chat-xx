@@ -1,3 +1,4 @@
+import * from './calc.mjs'
 class Term {
   constructor (font, w, h) {
     this.ps = 2
