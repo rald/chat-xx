@@ -3256,15 +3256,16 @@ const draw = () => {
   ani(draw)
 }
 
-const init = () => {
+const start() = () => {
   body.style.background = rgba(pal[15])
   ter = new Term(font, 16, 16)
   pad = new Pad(ter)
   ani(draw)
 }
 
+start()
+
 //  -------------------
 //  --- End Program ---
 //  -------------------
 
-export default init;
