@@ -385,7 +385,7 @@ class Pad {
 										this.ter.y--;
 									}
 								} else if(kk==="DN") {
-									qthis.key=0; 
+									this.key=0; 
 									if(this.ter.y<this.ter.h-1) {
 										this.ter.y++;
 										if(this.ter.y>this.ter.h-1) this.ter.y=this.ter.h-1;
@@ -430,13 +430,14 @@ class Pad {
                     this.ter.mem[this.ter.y*this.ter.w+this.ter.x]=this.key;
                     
                     this.ter.mem[this.ter.y*this.ter.w+this.ter.x+1]=this.key;
-                      							 
+  							   
   							    this.ter.x+=2;
 							   } else if(this.ter.y<this.ter.h-1) { 
 					          this.ter.x=0;
 						        this.ter.y++;
 						      } else {
-  									for (var ui = 0, uj = 16; uj < 256; ui++, uj++) {
+  								  this.ter.x=0;
+						        for (var ui = 0, uj = 16; uj < 256; ui++, uj++) {
   									  this.ter.mem[ui] = this.ter.mem[uj];
   									  this.ter.mem[uj] = 0;
   									}
