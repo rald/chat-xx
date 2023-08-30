@@ -2992,7 +2992,6 @@ class Term {
 
     rect(this.ctx, this.x * this.font.w * this.ps, this.y * this.font.h * this.ps, this.font.w * this.ps, this.font.h * this.ps, rgba(pal[6]))
   }
-
 }
 
 class Pad {
@@ -3256,7 +3255,7 @@ const draw = () => {
   ani(draw)
 }
 
-const start() = () => {
+const start = () => {
   body.style.background = rgba(pal[15])
   ter = new Term(font, 16, 16)
   pad = new Pad(ter)
@@ -3268,4 +3267,3 @@ start()
 //  -------------------
 //  --- End Program ---
 //  -------------------
-
