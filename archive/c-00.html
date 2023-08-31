@@ -12,7 +12,6 @@
 	<body>
 	  
 		<script>
-
 const font = {
   w: 8,
   h: 8,
@@ -2981,7 +2980,7 @@ class Term {
     this.canvas = make('canvas')
     this.canvas.width = width * pr
     this.canvas.height = height * pr
-    const tcx = flr((window.innerWidth - this.canvas.width / pr) / 2)
+    const tcx = flr((window.innerWidth - this.canvas.width/pr) / 2)
     const tcy = 8
 
     this.canvas.style.position = 'absolute'
@@ -2994,11 +2993,12 @@ class Term {
 
     this.ctx = gctx(this.canvas)
     this.ctx.scale(pr, pr)
-
+    
     clear(this.ctx, rgba(pal[0]))
-    //    this.ctx.translate(0.5, 0.5)
+//    this.ctx.translate(0.5, 0.5)
 
-    this.canvas.style.imageRendering = 'pixelated'
+    this.canvas.style.imageRendering="pixelated";
+
 
     this.mem = new Uint8Array(w * h)
     for (let i = 0; i < this.mem.length; i++) this.mem[i] = 0
@@ -3013,7 +3013,7 @@ class Term {
       dchr(this.ctx, this.font, this.mem[j * this.w + i], i * this.font.w + ox, j * this.font.h + oy, this.ps, rgba(pal[6]))
     }
 
-    rect(this.ctx, this.x * this.font.w * this.ps + 1, this.y * this.font.h * this.ps + 1, this.font.w * this.ps - 1, this.font.h * this.ps - 1, rgba(pal[6]))
+    rect(this.ctx, this.x * this.font.w * this.ps+1, this.y * this.font.h * this.ps+1, this.font.w * this.ps-1, this.font.h * this.ps-1, rgba(pal[6]))
   }
 }
 
@@ -3029,7 +3029,7 @@ class Pad {
 
     this.c = gctx(this.C)
     this.c.scale(pr, pr)
-    this.c.translate(-320,-240)
+    this.c.translate(-320/pr, -240/pr)
 
     const tcx = (window.innerWidth - this.w * 16) / 2
     const tcy = 8 + 8 + 256
@@ -3038,16 +3038,15 @@ class Pad {
     this.C.style.left = `${tcx}px`
     this.C.style.top = `${tcy}px`
     this.C.style.width = `${320}px`
-    this.C.style.height = `${240}px`
-
+     this.C.style.height = `${240}px`
     append(body, this.C)
 
     this.t = new Touch(this.C)
 
     clear(this.c, rgba(pal[0]))
-    //    this.c.translate(0.5, 0.5)
+//    this.c.translate(0.5, 0.5)
 
-    this.C.style.imageRendering = 'pixelated'
+    this.C.style.imageRendering="pixelated";
 
     this.x = 0
     this.y = 0
@@ -3112,7 +3111,7 @@ class Pad {
           ) frect(this.c, (this.sx + this.gx) * i + ox + cx, (this.sy + this.gy) * j + oy + cy, this.sx, this.sy, rgba(pal[8]))
 
           if (this.t.touchDown) {
-            if (inrect(this.t.touchX+320, this.t.touchY+240, (this.sx + this.gx) * i + ox + cx, (this.sy + this.gy) * j + oy + cy, this.sx, this.sy)) {
+            if (inrect(this.t.touchX, this.t.touchY, (this.sx + this.gx) * i + ox + cx, (this.sy + this.gy) * j + oy + cy, this.sx, this.sy)) {
               this.kp = 1
 
               frect(this.c, (this.sx + this.gx) * i + ox + cx, (this.sy + this.gy) * j + oy + cy, this.sx, this.sy, rgba(pal[8]))
@@ -3288,8 +3287,6 @@ const start = () => {
 }
 
 start()
-
-
 
 		</script>
 
